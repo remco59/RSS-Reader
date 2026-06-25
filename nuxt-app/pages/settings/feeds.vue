@@ -5,11 +5,21 @@
         <h1 class="text-2xl font-bold">Manage Feeds</h1>
         <p class="text-sm text-gray-500 mt-0.5">Subscribe to feeds and manage your sources</p>
       </div>
-      <UButton icon="i-heroicons-plus" label="Add feed" @click="showAdd = true" />
+      <div class="flex items-center gap-2">
+        <UButton
+          icon="i-heroicons-arrow-up-down"
+          label="Import / Export"
+          variant="outline"
+          color="neutral"
+          @click="showImportExport = true"
+        />
+        <UButton icon="i-heroicons-plus" label="Add feed" @click="showAdd = true" />
+      </div>
     </div>
 
     <AddFeedModal v-model:open="showAdd" @added="loadMyFeeds" />
     <EditFeedModal v-model:open="showEdit" :user-feed="editingFeed" @saved="loadMyFeeds" />
+    <ImportExportModal v-model:open="showImportExport" @imported="loadMyFeeds" />
 
     <!-- My subscriptions -->
     <section class="mb-8">
@@ -112,6 +122,7 @@ const allFeeds = ref<Feed[]>([]);
 const loading = ref(true);
 const showAdd = ref(false);
 const showEdit = ref(false);
+const showImportExport = ref(false);
 const editingFeed = ref<UserFeed | null>(null);
 
 const subscribedFeedIds = computed(
