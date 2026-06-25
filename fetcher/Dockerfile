@@ -23,8 +23,8 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-COPY package.json ./
-RUN npm install
+COPY package*.json ./
+RUN npm ci
 
 # Install Playwright's bundled Chromium
 RUN npx playwright install chromium

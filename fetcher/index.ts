@@ -73,6 +73,10 @@ async function runFetcher(force = false) {
 function startApiServer() {
   const port = process.env.FETCHER_API_PORT ? Number(process.env.FETCHER_API_PORT) : 3001;
   const server = http.createServer((req, res) => {
+    if (req.method === "GET" && req.url === "/health") {
+      res.writeHead(200, { "Content-Type": "application/json" }).end('{"status":"ok"}');
+      return;
+    }
     if (req.method !== "POST" || !req.url?.startsWith("/fetch")) {
       res.writeHead(404).end("Not found");
       return;
