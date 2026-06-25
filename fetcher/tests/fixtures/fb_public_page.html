@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>NASA - Facebook</title>
+  <meta property="og:title" content="NASA" />
+  <meta property="og:description" content="NASA's official Facebook page — news, mission updates, and photos." />
+  <meta property="og:image" content="https://example.com/nasa-cover.jpg" />
+  <meta property="og:url" content="https://www.facebook.com/NASA" />
+</head>
+<body>
+  <div id="root">
+
+    <!-- Post 1: article wrapper with data-ft attribute, data-store timestamp -->
+    <article data-ft="{&quot;story_attachment_style&quot;:&quot;album&quot;}">
+      <a href="/story.php?story_fbid=100000000001&amp;id=22222222">
+        <abbr data-store="{&quot;time&quot;:1700000000}">November 14, 2023</abbr>
+      </a>
+      <div dir="auto">Hubble Space Telescope captures a stunning image of the Crab Nebula supernova remnant, located 6,500 light years away.</div>
+      <img src="https://example.com/hubble.jpg" alt="Crab Nebula" width="640" height="480" />
+    </article>
+
+    <!-- Post 2: classic story_body_container markup -->
+    <div class="story_body_container">
+      <a href="https://m.facebook.com/story.php?story_fbid=100000000002&amp;id=22222222">
+        <abbr data-store="{&quot;time&quot;:1699900000}">November 13, 2023</abbr>
+      </a>
+      <p>Perseverance rover discovers intriguing rock formations on Mars that may indicate past microbial life.</p>
+      <img src="https://example.com/mars.jpg" alt="Mars rocks" width="640" height="480" />
+    </div>
+
+    <!-- Post 3: generic [data-ft] wrapper without an explicit article tag -->
+    <div data-ft="{&quot;story_attachment_style&quot;:&quot;photo&quot;}">
+      <a href="/story.php?story_fbid=100000000003&amp;id=22222222">
+        <abbr title="Monday, November 12, 2023 at 10:00 AM">November 12</abbr>
+      </a>
+      <div dir="auto">The Artemis program marks a new chapter of lunar exploration. Watch the latest mission highlights.</div>
+    </div>
+
+  </div>
+</body>
+</html>

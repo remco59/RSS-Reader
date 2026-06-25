@@ -1,0 +1,25 @@
+{
+  "name": "feed-fetcher",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --import tsx/esm index.ts",
+    "dev": "tsx watch index.ts",
+    "deduplicate": "node --import tsx/esm deduplicate.ts",
+    "test": "node --import tsx/esm --test tests/facebookSource.test.ts tests/facebookParser.test.ts"
+  },
+  "dependencies": {
+    "node-cron": "^3.0.3",
+    "node-html-parser": "^6.1.13",
+    "playwright": "^1.48.0",
+    "pocketbase": "^0.21.5",
+    "rss-parser": "^3.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/node-cron": "^3.0.11",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

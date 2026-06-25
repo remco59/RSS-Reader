@@ -1,0 +1,21 @@
+# PocketBase data
+pb_data/
+pb_hooks/
+
+# Environment
+.env
+*.local
+
+# Nuxt
+nuxt-app/.nuxt/
+nuxt-app/.output/
+nuxt-app/node_modules/
+nuxt-app/.env
+
+# Fetcher
+fetcher/node_modules/
+fetcher/dist/
+
+# General
+.DS_Store
+*.log

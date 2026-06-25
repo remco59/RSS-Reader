@@ -1,0 +1,74 @@
+services:
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    restart: unless-stopped
+    volumes:
+      - ./pb_data:/pb/pb_data
+      - ./pb_migrations:/pb/pb_migrations
+    ports:
+      - "8090:8090"
+    env_file:
+      - .env
+    entrypoint:
+      - /bin/sh
+      - -c
+      - >-
+        /usr/local/bin/pocketbase superuser upsert $$PB_ADMIN_EMAIL $$PB_ADMIN_PASSWORD
+        --dir=/pb/pb_data 2>/dev/null || true;
+        exec /usr/local/bin/pocketbase serve --http=0.0.0.0:8090 --dir=/pb/pb_data
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8090/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  nuxt:
+    build:
+      context: ./nuxt-app
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      POCKETBASE_URL: http://pocketbase:8090
+      PUBLIC_POCKETBASE_URL: http://localhost:8090
+    env_file:
+      - .env
+    depends_on:
+      pocketbase:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./nuxt-app
+          target: /app
+          ignore:
+            - node_modules/
+            - .nuxt/
+            - .output/
+        - action: rebuild
+          path: ./nuxt-app/package.json
+
+  fetcher:
+    build:
+      context: ./fetcher
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      POCKETBASE_URL: http://pocketbase:8090
+    env_file:
+      - .env
+    depends_on:
+      pocketbase:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./fetcher
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./fetcher/package.json
