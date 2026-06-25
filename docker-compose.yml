@@ -34,6 +34,8 @@ services:
     environment:
       POCKETBASE_URL: http://pocketbase:8090
       PUBLIC_POCKETBASE_URL: ${PUBLIC_POCKETBASE_URL:-http://localhost:8090}
+      NUXT_POCKETBASE_URL: http://pocketbase:8090
+      NUXT_PUBLIC_POCKETBASE_URL: ${PUBLIC_POCKETBASE_URL:-http://localhost:8090}
     env_file:
       - .env
     depends_on:
